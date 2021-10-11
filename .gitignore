@@ -11,6 +11,9 @@ node_modules/
 packages/**/*.d.ts
 packages/**/*.js
 
+# environment
+.env
+
 # misc
 .DS_Store
 lerna-debug.log
@@ -21,6 +24,7 @@ yarn-error.log
 /packages/**/LICENSE
 
 # example
+/dist
 /quick-start
 /example_dist
 /example
