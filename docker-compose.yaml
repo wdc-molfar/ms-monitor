@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - rabbitmq
+    restart: on-failure
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: on-failure
+    container_name: rabbitmq
+    tty: true
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASSWORD}
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+    volumes:
+      - ./rabbit-data:/var/lib/rabbitmq
