@@ -1,12 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { getMongoConfig } from './config/mongo.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    TypegooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getMongoConfig,
     }),
   ],
   controllers: [AppController],
